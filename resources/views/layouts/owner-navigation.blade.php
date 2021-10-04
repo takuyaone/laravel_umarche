@@ -23,7 +23,9 @@
                     <x-nav-link :href="route('owner.images.index')" :active="request()->routeIs('owner.images.index')">
                         画像管理
                     </x-nav-link>
-
+                    <x-nav-link :href="route('owner.products.index')" :active="request()->routeIs('owner.products.index')">
+                        商品管理
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -80,6 +82,9 @@
             <x-responsive-nav-link :href="route('owner.images.index')" :active="request()->routeIs('owner.images.index')">
                 画像管理
             </x-responsive-nav-link>
+            <x-nav-link :href="route('owner.products.index')" :active="request()->routeIs('owner.products.index')">
+                画像管理
+            </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
