@@ -165,5 +165,6 @@ return [
         'title'                 => 'Title',
         'username'              => 'Username',
         'year'                  => 'Year',
+        'quantity'              => '在庫の数量',
     ],
 ];
