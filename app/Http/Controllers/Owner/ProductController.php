@@ -113,29 +113,17 @@ class ProductController extends Controller
             ->with(['message' => '商品登録を実施しました。', 'status' => 'info']);
     }
 
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $product=Product::findOrFail($id);
+        $quantity=Stock::where('product_id',$product->id)->sum('quantity');
+        $shops = Shop::where('owner_id', Auth::id())->select('id', 'name')->get();
+        $images = Image::where('owner_id', Auth::id())->select('id', 'title', 'filename')->orderBy('updated_at', 'desc')->get();
+        $categories = PrimaryCategory::with('secondary')->get();
+
+        return view('owner.products.edit',compact('product','quantity','shops','images','categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
