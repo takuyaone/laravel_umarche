@@ -52,12 +52,6 @@ class ImageController extends Controller
         return view('owner.images.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UploadImageRequest $request)
     {
         $imageFiles=$request->file('files');
@@ -103,12 +97,6 @@ class ImageController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $image=Image::findOrFail($id);
@@ -118,7 +106,7 @@ class ImageController extends Controller
         }
 
         Image::findOrFail($id)->delete();
-        
+
         return redirect()
             ->route('owner.images.index')
             ->with(['message' => '画像情報を削除しました。', 'status' => 'alert']);
