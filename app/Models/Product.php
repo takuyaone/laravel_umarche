@@ -8,7 +8,7 @@ use App\Models\Shop;
 use App\Models\Image;
 use App\Models\SecondaryCategory;
 use App\Models\Stock;
-
+use App\Models\User;
 
 
 
@@ -66,6 +66,11 @@ class Product extends Model
         return $this->hasMany(Stock::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(Product::class, 'carts')
+            ->withPivot(['id', 'quantity']);
+    }
 
 
 }
