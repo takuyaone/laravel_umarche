@@ -19,7 +19,7 @@
                             <img src="">
                             @endif
                         </div>
-                        <div class="md:w-4/12">{{$product->name}}</div>
+                        <div class="md:w-4/12 ml-4">{{$product->name}}</div>
                         <div class="md:w-3/12 flex justify-around">
                             <div>{{$product->pivot->quantity}}個</div>
                             <div>{{ number_format($product->pivot->quantity * $product->price )}}<span class="text-sm text-gray-700">円(税込み)</span></div>
