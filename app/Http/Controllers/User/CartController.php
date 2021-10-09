@@ -78,11 +78,11 @@ class CartController extends Controller
                 'quantity' => $product->pivot->quantity * -1,
             ]);
         }
-        dd('test');
+        // dd('test');
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
         $session= \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
-            'lineItems'=>[$lineItems],
+            'line_items'=>[$lineItems],
             'mode' => 'payment',
             'success_url' => route('user.items.index'),
             'cancel_url' =>route('user.cart.index'),
