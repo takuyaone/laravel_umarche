@@ -39,7 +39,7 @@ class Product extends Model
 
     public function imageFirst()
     {
-        return $this->belongsTo(Image::class,'image1','id');
+        return $this->belongsTo(Image::class, 'image1', 'id');
     }
 
     public function imageSecond()
@@ -60,7 +60,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(SecondaryCategory::class,'secondary_category_id');
+        return $this->belongsTo(SecondaryCategory::class, 'secondary_category_id');
     }
 
     public function stock()
@@ -77,12 +77,12 @@ class Product extends Model
     public function scopeAvailableItems($query)
     {
         $stocks = DB::table('t_stocks')
-        ->select(
-            'product_id',
-            DB::raw('sum(quantity) as quantity')
-        )
-        ->groupBy('product_id')
-        ->having('quantity', '>', 1);
+            ->select(
+                'product_id',
+                DB::raw('sum(quantity) as quantity')
+            )
+            ->groupBy('product_id')
+            ->having('quantity', '>', 1);
 
         return $query->joinSub($stocks, 'stock', function ($join) {
             $join->on('products.id', '=', 'stock.product_id');
@@ -103,5 +103,22 @@ class Product extends Model
             );
     }
 
-
+    public function scopeSortOrder($query, $sortOrder)
+    {
+        if ($sortOrder === null || $sortOrder === \Constant::SORT_ORDER['recommend']) {
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['higherPrice']) {
+            return $query->orderBy('price', 'desc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['lowerPrice']) {
+            return $query->orderBy('price', 'asc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['later']) {
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if ($sortOrder === \Constant::SORT_ORDER['older']) {
+            return $query->orderBy('products.created_at', 'asc');
+        }
+    }
 }
