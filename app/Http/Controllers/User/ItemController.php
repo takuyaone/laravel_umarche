@@ -9,6 +9,8 @@ use App\Models\Stock;
 use App\Models\PrimaryCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 
 
 class ItemController extends Controller
@@ -32,6 +34,8 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
+        Mail::to('test@example.com')->send(new TestMail());
+
         $products=Product::availableItems()
         ->selectCategory($request->category ?? '0')
         ->searchKeyword($request->keyword)
