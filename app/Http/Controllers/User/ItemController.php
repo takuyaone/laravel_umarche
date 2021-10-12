@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Stock;
+use App\Models\PrimaryCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,9 +32,13 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        $products=Product::availableItems()->sortOrder($request->sort)->paginate($request->pagination ?? 20);
+        $products=Product::availableItems()
+        ->selectCategory($request->category ?? '0')
+        ->sortOrder($request->sort)
+        ->paginate($request->pagination ?? 20);
+        $categories = PrimaryCategory::with('secondary')->get();
 
-        return view('user.index',compact('products'));
+        return view('user.index',compact('products','categories'));
     }
 
     public function show($id)
