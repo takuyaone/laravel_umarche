@@ -64,7 +64,7 @@
                                             @foreach($category->secondary as $secondary)
                                             <option value="{{$secondary->id}}">{{$secondary->name}}</option>
                                             @endforeach
-                                            @endforeach
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
